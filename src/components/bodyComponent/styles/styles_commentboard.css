@@ -1,0 +1,22 @@
+.button-create{
+  float: left;
+  background: #333333;
+  padding: 8px 10px 8px 10px;
+  color: white;
+  border: 0;
+  font-size: 20px;
+  width: 90px;
+  margin-top: 5px;
+}
+
+
+.button-create:hover{
+  background: #e6e6e6;
+  color: #404040;
+  font-weight: bold;
+  border-radius: 2px;
+}
+
+#bigBoard{
+  height: auto;
+}

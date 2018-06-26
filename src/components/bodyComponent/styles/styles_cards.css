@@ -1,0 +1,87 @@
+.card{
+  text-align: center;
+  padding: 20px;
+  border-top: 10px solid #b3e6ff;
+  box-shadow: 0 0 8px 0 rgba(72,94,116,0.6);
+  max-width: 250px;
+  height: 100px;
+  display: block;
+  border-radius: 1px;
+}
+
+.card:hover{
+  border-top: 10px solid #00ffff;
+  cursor: pointer;
+}
+
+.card:hover #card-service{
+  border: 2px solid #ff1a75;
+  color: #ff1a75
+}
+
+.card-modalBox{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation-name: modalOpen;
+  animation-duration: 0.5s;
+}
+
+.card-modalContent{
+  background: white;
+  max-width: 600px;
+  margin: 5% auto;
+  padding: 20px;
+  width: 70%;
+  box-shadow: 0 0 20px 0 rgba(72,94,116,0.6);
+  border-radius: 5px;
+  /*box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0, 0.2),
+              0 7px 20px 0 rgba(0, 0, 0, 0, 0.15);*/
+}
+
+.card-closeButton{
+  color: #ccc;
+  float: right;
+  font-size: 30px;
+}
+
+.card-closeButton:hover, .closeButton:focus{
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#card-msg{
+  width: 80%;
+  height: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#card-service{
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  font-size: 14px;
+  padding: 3px 8px 3px 8px;
+  border: 2px solid #cccccc;
+  color: #cccccc;
+  border-radius: 10px;
+}
+
+@keyframes modalOpen {
+  from{opacity: 0 }
+  to{opacity: 1}
+}

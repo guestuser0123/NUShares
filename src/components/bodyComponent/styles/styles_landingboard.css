@@ -1,0 +1,18 @@
+.landing-board-wrapper{
+  /*border: 2px solid black;*/
+  display: inline-block;
+  padding: 20px;
+}
+
+.landing-board-CardsBoard{
+  float: left;
+  margin-left: 20px;
+}
+
+.landing-board-ServiceFilter{
+  float:left;
+}
+
+.landing-board-ServiceFilter label{
+  display: block;
+}
