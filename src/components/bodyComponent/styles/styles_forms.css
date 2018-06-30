@@ -3,7 +3,8 @@
 }
 
 #wrapper-forms{
-  max-width: 700px;
+  display: block;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
   /* box-shadow: 0 0 20px 0 rgba(72,94,116,0.6);
@@ -11,13 +12,14 @@
 }
 
 #container-forms form{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
 }
 
 #container-forms form > *{
-  padding: 2em;
+  min-width: 0;
+  padding: 20px;
 }
 
 #container-forms form label{
@@ -25,6 +27,7 @@
 }
 
 #container-forms form p{
+  min-width: 0;
   margin:0;
 }
 
@@ -32,16 +35,20 @@
   grid-column: 1/3;
 }
 
-#container-forms form input, #container-forms form textarea{
+#container-forms form input, #container-forms form textarea, .forms-select select{
   width:90%;
-  padding:1em;
+  padding:12px;
   border: 1px solid #c9e6ff;
+  font-size: 16px;
+  margin-top: 5px;
 }
 
 #container-forms form button{
   width:100%;
   padding:1em;
   border: 1px solid #c9e6ff;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #container-forms form button{
@@ -49,6 +56,7 @@
   border:0;
   text-transform: uppercase;
   border-radius: 5;
+  font-size: 18px;
 }
 
 #container-forms form button:hover, #container-forms form button:focus{
@@ -74,5 +82,20 @@
 #header-forms{
   text-align: center;
   padding-top: 20px;
-  margin-top: 2em;
+  margin-top: 1em;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.textField {
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px,
+}
+
+.forms-select select {
+  width: 100%
 }

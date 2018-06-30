@@ -1,45 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import LandingBoard from './LandingBoard';
+import Tabs from './Tabs';
+import '../styles/styles_landingboardcontroller.css';
 
-class LandingBoardController extends Component{
+
+class LandingBoardController extends React.Component {
   constructor(props){
     super(props);
-    this.filterOffer = this.filterOffer.bind(this);
-    this.filterRequest = this.filterRequest.bind(this);
-
     this.state = {
-      type: "offer"
+      active: 'offer'
     };
-  }
-
-  filterOffer(e){
-    this.setState({ type: e.target.value });
-  }
-
-  filterRequest(e){
-    this.setState({ type: e.target.value });
   }
 
   render(){
     return(
-      <div id="landing-board-wrapper">
+      <div id='landing-board-controller-wrapper'>
+        <Tabs active={this.state.active}
+              onChange={active => this.setState({active})}>
 
-        <div id="typefilter-wrapper">
-          <label>Offers</label>
-          <input type="radio"
-                 value="offer"
-                 name="type"
-                 onChange={this.filterOffer} required/>
+          <div key='offer'>Offers</div>
+          <div key='request'>Requests</div>
+        </Tabs>
 
-          <label>Requests</label>
-          <input type="radio"
-                 value="request"
-                 name="type"
-                 onChange={this.filterRequest} />
+        <div id='landing-board-controller-content'>
+          <LandingBoard type={this.state.active} />
         </div>
-
-        <LandingBoard type={this.state.type} />
-
       </div>
     );
   }

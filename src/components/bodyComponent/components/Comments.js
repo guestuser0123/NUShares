@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { base } from '../base';
+import { db } from '../../../firebase/firebase';
 import '../styles/styles_comments.css';
 
 // TODO: Double check on the remove function (dubious)
@@ -25,7 +25,7 @@ class Comments extends Component{
   remove(){
     this.props.deleteFromBoard(this.props.index);
 
-    var ref = base.ref(this.props.keyState);
+    var ref = db.ref(this.props.keyState);
     ref.remove();
   }
 
@@ -36,7 +36,7 @@ class Comments extends Component{
     var fullDataAddress = null;
     if(this.props.keyState==="empty"){
       fullDataAddress = "transaction/" + this.props.dataAddress + "/Comments";
-      var commentRef = base.ref(fullDataAddress);
+      var commentRef = db.ref(fullDataAddress);
       var newcommentRef = commentRef.push();
       newcommentRef.set({
         msg: this.refs.newText.value,
@@ -44,7 +44,7 @@ class Comments extends Component{
       });
     }else{
       fullDataAddress = this.props.keyState;
-      commentRef = base.ref(fullDataAddress);
+      commentRef = db.ref(fullDataAddress);
       commentRef.update({
         msg: this.refs.newText.value,
       });

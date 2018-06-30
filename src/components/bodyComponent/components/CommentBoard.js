@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Comments from './Comments';
-import { base } from '../base';
+import { db } from '../../../firebase/firebase';
 import '../styles/styles_commentboard.css';
 
 class CommentBoard extends Component{
@@ -8,12 +8,13 @@ class CommentBoard extends Component{
     super(props);
     this.state = {
       comments: [],
-      keys: []
+      keys: [],
     };
     this.create = this.create.bind(this);
     this.removeComment = this.removeComment.bind(this);
     this.updateComment = this.updateComment.bind(this);
     this.eachComment = this.eachComment.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   create(text){
@@ -52,7 +53,7 @@ class CommentBoard extends Component{
   }
 
   componentWillMount(){
-    this.firebaseRef = base.ref('transaction/' + this.props.dataAddress + '/Comments');
+    this.firebaseRef = db.ref('transaction/' + this.props.dataAddress + '/Comments');
     var that = this;
     this.firebaseRef.on("value", function(snapshot){
       var comments = [];
@@ -72,6 +73,10 @@ class CommentBoard extends Component{
     })
   }
 
+  componentWillUnmount(){
+    this.firebaseRef.off('value');
+  }
+
   render(){
     return (
       <div id="bigBoard">
@@ -80,7 +85,7 @@ class CommentBoard extends Component{
             this.state.comments.map(this.eachComment)
           }
         </div>
-        <button onClick={this.create.bind(null, 'New Comment Added')} className="button-create">Create</button>
+        <button onClick={this.create.bind(null, 'New Comment Added')} className="button-create">REPLY</button>
       </div>
     );
   }

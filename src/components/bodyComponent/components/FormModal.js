@@ -39,7 +39,7 @@ class FormModal extends Component{
     if(this.props.info.key !== ""){
       return(
         <div id="bigWrapper">
-          <button id="modalButton" onClick={this.outsideClick}>Edit</button>
+          <button id="modalButtonEdit" onClick={this.outsideClick}>EDIT</button>
 
           <div id="modalBox" onClick={this.outsideClick}>
             <div id="modalContent">
@@ -55,7 +55,7 @@ class FormModal extends Component{
     }else{
       return(
         <div id="bigWrapper">
-          <button id="modalButton" onClick={this.outsideClick}>Create</button>
+          <button id="modalButton" onClick={this.outsideClick}>CREATE</button>
 
           <div id="modalBox" onClick={this.outsideClick}>
             <div id="modalContent">
@@ -75,15 +75,15 @@ class FormModal extends Component{
     if(this.props.info.key !== ""){
       return(
         <div id="bigWrapper">
-          <button id="modalButton"
-                  onClick={this.openModal}>Edit</button>
+          <button id="modalButtonEdit"
+                  onClick={this.openModal}>EDIT</button>
         </div>
       );
     }else{
       return(
         <div id="bigWrapper">
           <button id="modalButton"
-                  onClick={this.openModal}>Create</button>
+                  onClick={this.openModal}>CREATE</button>
         </div>
       );
     }

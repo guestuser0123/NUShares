@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Cards from './Cards';
-import { base } from '../base';
+import { db } from '../../../firebase/firebase';
 import '../styles/styles_board.css';
 
 class OfferBoard extends Component{
@@ -15,13 +15,12 @@ class OfferBoard extends Component{
   }
 
   componentWillMount(){
-    this.firebaseRef = base.ref("transaction/offer");
+    this.firebaseRef = db.ref("transaction/offer");
     var that = this;
     this.firebaseRef.on("value", function(snapshot){
       var transactionList = [];
       snapshot.forEach(function(data){
         var info = {
-          id: transactionList.length + 1,
           what: data.val().what,
           who: data.val().who,
           when: data.val().when,
@@ -32,18 +31,22 @@ class OfferBoard extends Component{
           key: Object.keys(snapshot.val())[transactionList.length]
         }
 
-        transactionList.push(info);
+        transactionList.unshift(info);
         // 'this' means something else since you are inside the snapshot now
         that.setState({transactionList: transactionList});
       });
     });
   }
 
+  componentWillUnmount(){
+    this.firebaseRef.off('value');
+  }
+
   eachCard(info, i){
     if(this.props.service !== "all"){
       if(info.service === this.props.service){
         return(
-          <Cards key={i} index={i} info={info} />
+          <Cards key={i} index={i} info={info}/>
         );
       }
     }else{

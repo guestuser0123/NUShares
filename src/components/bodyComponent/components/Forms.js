@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/styles_forms.css';
-import { base } from '../base';
+import { db } from '../../../firebase/firebase';
+// import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 class Forms extends Component {
 
@@ -14,6 +16,9 @@ class Forms extends Component {
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleServiceChange = this.handleServiceChange.bind(this);
     this.saveMessage = this.saveMessage.bind(this);
+    this.convertDateTime = this.convertDateTime.bind(this);
+    this.getWhen = this.getWhen.bind(this);
+    this.getUTC = this.getUTC.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
@@ -24,7 +29,8 @@ class Forms extends Component {
       money: this.props.info.money,
       type: this.props.info.type,
       service: this.props.info.service,
-      key: this.props.info.key
+      key: this.props.info.key,
+      utc: ''
     };
   }
 
@@ -54,6 +60,7 @@ class Forms extends Component {
 
   handleServiceChange(e){
     this.setState({ service: e.target.value });
+
   }
 
   saveMessage(who,what,where,when,money,type,service){
@@ -67,7 +74,7 @@ class Forms extends Component {
 
     if(this.state.key !== ""){
       address = address + "/" + this.state.key;
-      transactionRef = base.ref(address);
+      transactionRef = db.ref(address);
       transactionRef.update({
         who: this.state.who,
         what: this.state.what,
@@ -75,10 +82,11 @@ class Forms extends Component {
         where: this.state.where,
         money: this.state.money,
         type: this.state.type,
-        service: this.state.service
+        service: this.state.service,
+        utc: this.getUTC()
       });
     }else{
-      transactionRef = base.ref(address);
+      transactionRef = db.ref(address);
       var newTransactionRef = transactionRef.push();
       newTransactionRef.set({
         who: who,
@@ -87,7 +95,8 @@ class Forms extends Component {
         when: when,
         money: money,
         type: type,
-        service: service
+        service: service,
+        utc: this.getUTC()
       });
     }
   }
@@ -111,6 +120,34 @@ class Forms extends Component {
     }, 3000);*/
 
     //document.getElementById('submissionForm').reset();
+  }
+
+  getWhen(){
+    if(this.state.when === ''){
+      return this.convertDateTime();
+    }else{
+      return this.state.when;
+    }
+  }
+
+  convertDateTime(){
+    var currentDateTime = (new Date()).toLocaleString();
+    var month = currentDateTime.slice(3,5);
+    var day = currentDateTime.slice(0,2);
+    var year = currentDateTime.slice(6,10);
+    var time = currentDateTime.slice(12,currentDateTime.length);
+
+    return year + "-" + month + "-" + day + "T" + time;
+  }
+
+  getUTC(){
+    var dateTime = this.state.when;
+    var year = dateTime.slice(0,4);
+    var month = dateTime.slice(5,7);
+    var day = dateTime.slice(8,10);
+    var hour = dateTime.slice(11,13);
+    var min = dateTime.slice(14,16);
+    return Date.UTC(year, month, day, hour, min);
   }
 
   render(){
@@ -143,17 +180,23 @@ class Forms extends Component {
               </textarea>
             </p>
 
-            <p>
+            <div>
               <label>When</label>
-              <input type="text"
-                     name='when'
-                     value={this.state.when}
-                     id='when'
-                     placeholder="Enter a date &/or time here"
-                     onChange={this.handleTimeChange}
-                     required>
-              </input>
-            </p>
+              <div className='container' noValidate>
+                <TextField
+                  id="datetime-local"
+                  type="datetime-local"
+                  defaultValue={this.getWhen()}
+                  className='textField'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleTimeChange}
+                />
+              </div>
+            </div>
+
+            <p></p>
 
             <p>
               <label>Where</label>
@@ -167,39 +210,6 @@ class Forms extends Component {
               </textarea>
             </p>
 
-            <p id="radioBox-type-forms">
-              <label>Offer</label>
-              <input type="radio"
-                     value="offer"
-                     name="type"
-                     onChange={this.handleTypeChange}
-                     required />
-              <label>Request</label>
-              <input type="radio"
-                     value="request"
-                     name="type"
-                     onChange={this.handleTypeChange} />
-            </p>
-
-            <p id="radioBox-service-forms">
-              <label>Food</label>
-              <input type="radio"
-                     value="food"
-                     name="service"
-                     onChange={this.handleServiceChange}
-                     required />
-              <label>Carpool</label>
-              <input type="radio"
-                     value="carpool"
-                     name="service"
-                     onChange={this.handleServiceChange} />
-              <label>Printing</label>
-              <input type="radio"
-                     value="printing"
-                     name="service"
-                     onChange={this.handleServiceChange} />
-            </p>
-
             <p>
               <label>Extra costs (Optional)</label>
               <input type="text"
@@ -208,6 +218,29 @@ class Forms extends Component {
                      placeholder="E.g. extra 50 cents"
                      onChange={this.handleMoneyChange}>
               </input>
+            </p>
+
+            <p className="forms-select">
+              <label>Type</label>
+              <select required
+                      value={this.state.type}
+                      onChange={this.handleTypeChange}>
+                <option value="">Select form type</option>
+                <option value={"offer"}>Offer</option>
+                <option value={"request"}>Request</option>
+              </select>
+            </p>
+
+            <p className="forms-select">
+              <label>Services</label>
+                <select required
+                        value={this.state.service}
+                        onChange={this.handleServiceChange}>
+                  <option value="">Select service type</option>
+                  <option value={"food"}>Food</option>
+                  <option value={"carpool"}>Carpool</option>
+                  <option value={"printing"}>Printing</option>
+                </select>
             </p>
 
             <p className="full">
