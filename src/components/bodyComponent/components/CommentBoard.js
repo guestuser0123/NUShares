@@ -9,6 +9,8 @@ class CommentBoard extends Component{
     this.state = {
       comments: [],
       keys: [],
+      accepted: [],
+      editing: [],
     };
     this.create = this.create.bind(this);
     this.removeComment = this.removeComment.bind(this);
@@ -25,12 +27,32 @@ class CommentBoard extends Component{
     arr = this.state.keys;
     arr.push("empty");
     this.setState({keys: arr});
+    
+    arr = this.state.accepted;
+    arr.push(false);
+    this.setState({accepted: arr});
+
+    arr = this.state.editing;
+    arr.push(true);
+    this.setState({editing: arr});
   }
 
   removeComment(i){
     var arr = this.state.comments;
     arr.splice(i,1);
     this.setState({comments: arr});
+
+    arr = this.state.keys;
+    arr.splice(i,1);
+    this.setState({keys: arr});
+
+    arr = this.state.accepted;
+    arr.splice(i,1);
+    this.setState({accepted: arr});
+
+    arr = this.state.editing;
+    arr.splice(i,1);
+    this.setState({editing: arr});
   }
 
   updateComment(newText, i){
@@ -44,6 +66,8 @@ class CommentBoard extends Component{
        <Comments key={i}
                  index={i}
                  keyState={this.state.keys[i]}
+                 accepted={this.state.accepted[i]}
+                 editing={this.state.editing[i]}
                  updateCommentText={this.updateComment}
                  deleteFromBoard={this.removeComment}
                  dataAddress={this.props.dataAddress}>
@@ -58,17 +82,25 @@ class CommentBoard extends Component{
     this.firebaseRef.on("value", function(snapshot){
       var comments = [];
       var keys = [];
+      var accepted = [];
+      var editing = [];
       snapshot.forEach(function(data){
         var eachComment = {
           msg: data.val().msg,
-          key: data.val().key
+          key: data.val().key,
+          accept: data.val().accept,
+          edit: false,
         }
-
+        
+        editing.push(eachComment.edit);
+        accepted.push(eachComment.accept);
         comments.push(eachComment.msg);
         keys.push(eachComment.key);
         // 'this' means something else since you are inside the snapshot now
         that.setState({comments: comments});
         that.setState({keys: keys});
+        that.setState({accepted: accepted});
+        that.setState({editing: editing});
       })
     })
   }
@@ -85,7 +117,7 @@ class CommentBoard extends Component{
             this.state.comments.map(this.eachComment)
           }
         </div>
-        <button onClick={this.create.bind(null, 'New Comment Added')} className="button-create">REPLY</button>
+        <button onClick={this.create.bind(null, '')} className="button-create">REPLY</button>
       </div>
     );
   }

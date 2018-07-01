@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/styles_cards.css';
 import WindowView from './WindowView';
+import SmsFailed from '@material-ui/icons/SmsFailed';
 
 class Cards extends Component{
   constructor(props){
@@ -50,6 +51,10 @@ class Cards extends Component{
         <div className="card" onClick={this.detailedView}>
           <div id="card-msg">{this.props.info.what}</div>
           <div id="card-service"># {this.props.info.service}</div>
+          <div id="card-smallInfo">
+            <div id="card-comments">{this.props.info.commentSize}</div>
+            <SmsFailed id="card-icon"/>
+          </div>
         </div>
       </div>
     );
@@ -61,6 +66,10 @@ class Cards extends Component{
         <div className="card" onClick={this.detailedView}>
           <div id="card-msg">{this.props.info.what}</div>
           <div id="card-service"># {this.props.info.service}</div>
+          <div id="card-smallInfo">
+            <div id="card-comments">{this.props.info.commentSize}</div>
+            <SmsFailed id="card-icon"/>
+          </div>
         </div>
 
         <div id="card-modalBox" onClick={this.outsideClick}>

@@ -28,7 +28,14 @@ class OfferBoard extends Component{
           money: data.val().money,
           type: data.val().type,
           service: data.val().service,
-          key: Object.keys(snapshot.val())[transactionList.length]
+          key: Object.keys(snapshot.val())[transactionList.length],
+          commentSize: data.val().Comments
+        }
+
+        if(typeof info.commentSize === "undefined"){
+          info.commentSize = 0;
+        }else{
+          info.commentSize = Object.keys(info.commentSize).length;
         }
 
         transactionList.unshift(info);

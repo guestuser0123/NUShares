@@ -84,3 +84,21 @@
   from{opacity: 0 }
   to{opacity: 1}
 }
+
+#card-smallInfo{
+  position: relative;
+  float: right;
+  bottom: 0.8em;
+}
+
+#card-comments{
+  position: relative;
+  float: left;
+  color: #cccccc;
+  margin-right: 0.5em;
+}
+
+#card-icon{
+  color: #cccccc;
+}
+

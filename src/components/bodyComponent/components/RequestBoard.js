@@ -31,6 +31,12 @@ class RequestBoard extends Component{
           key: Object.keys(snapshot.val())[transactionList.length]
         }
 
+        if(typeof info.commentSize === "undefined"){
+          info.commentSize = 0;
+        }else{
+          info.commentSize = Object.keys(info.commentSize).length;
+        }
+
         transactionList.unshift(info);
         // 'this' means something else since you are inside the snapshot now
         that.setState({transactionList: transactionList});
