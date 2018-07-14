@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { db } from '../../../firebase/firebase';
 import '../styles/styles_alertbox.css';
 
-class AlertDialog extends React.Component {
+class AlertBox extends React.Component {
   state = {
     open: false,
     deleted: false,
@@ -79,4 +79,4 @@ class AlertDialog extends React.Component {
   }
 }
 
-export default AlertDialog;
+export default AlertBox;

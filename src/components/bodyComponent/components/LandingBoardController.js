@@ -15,15 +15,16 @@ class LandingBoardController extends React.Component {
   render(){
     return(
       <div id='landing-board-controller-wrapper'>
-        <Tabs active={this.state.active}
-              onChange={active => this.setState({active})}>
+        <div id="landing-board-controller-tab">
+          <Tabs active={this.state.active}
+                onChange={active => this.setState({active})}>
 
-          <div key='offer'>Offers</div>
-          <div key='request'>Requests</div>
-        </Tabs>
-
+            <div key='offer'>Offers</div>
+            <div key='request'>Requests</div>
+          </Tabs>
+        </div>
         <div id='landing-board-controller-content'>
-          <LandingBoard type={this.state.active} />
+          <LandingBoard type={this.state.active} services={"all"}/>
         </div>
       </div>
     );

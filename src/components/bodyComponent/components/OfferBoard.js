@@ -9,8 +9,9 @@ class OfferBoard extends Component{
     this.eachCard = this.eachCard.bind(this);
 
     this.state = {
-      transactionList: [],
+      transactionList: "empty",
       service: this.props.service,
+      loaded: false
     };
   }
 
@@ -29,6 +30,7 @@ class OfferBoard extends Component{
           type: data.val().type,
           service: data.val().service,
           key: Object.keys(snapshot.val())[transactionList.length],
+          author: data.val().author,
           commentSize: data.val().Comments
         }
 
@@ -52,23 +54,37 @@ class OfferBoard extends Component{
   eachCard(info, i){
     if(this.props.service !== "all"){
       if(info.service === this.props.service){
+        if(info.what.toLowerCase().includes(this.props.search.toLowerCase())){
+          return(
+            <Cards key={i} index={i} info={info}/>
+          );
+        }        
+      }
+    }else{
+      if(info.what.toLowerCase().includes(this.props.search.toLowerCase())){
         return(
           <Cards key={i} index={i} info={info}/>
         );
-      }
-    }else{
-      return(
-        <Cards key={i} index={i} info={info} />
-      );
+      }        
     }
   }
 
   render() {
-    return (
-      <div id="board-container">
-        { this.state.transactionList.map(this.eachCard) }
-      </div>
-    );
+    if(typeof this.state.transactionList === 'string'){
+      return(
+        <div></div>
+      );
+    }else if(this.state.transactionList.length === 0){
+      return (
+        <h2>There are no offers at the moment...</h2>
+      );
+    }else{
+      return (
+        <div id="board-container">
+          { this.state.transactionList.map(this.eachCard) }
+        </div>
+      );
+    }    
   }
 }
 

@@ -1,6 +1,15 @@
-#board-container{
+#board-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+  grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
   height: auto;
+}
+  
+@media (min-width: 500px) {
+  #board-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+    grid-gap: 30px;
+    height: auto;
+  }
 }

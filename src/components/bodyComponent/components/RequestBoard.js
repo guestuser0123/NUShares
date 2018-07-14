@@ -28,7 +28,9 @@ class RequestBoard extends Component{
           money: data.val().money,
           type: data.val().type,
           service: data.val().service,
-          key: Object.keys(snapshot.val())[transactionList.length]
+          author: data.val().author,
+          key: Object.keys(snapshot.val())[transactionList.length],
+          commentSize: data.val().Comments
         }
 
         if(typeof info.commentSize === "undefined"){
@@ -51,23 +53,44 @@ class RequestBoard extends Component{
   eachCard(info, i){
     if(this.props.service !== "all"){
       if(info.service === this.props.service){
-        return(
-          <Cards key={i} index={i} info={info} />
-        );
+        if(info.what.toLowerCase().includes(this.props.search.toLowerCase())){
+          return(
+            <Cards key={i} index={i} info={info}/>
+          );
+        }        
       }
     }else{
-      return(
-        <Cards key={i} index={i} info={info} />
-      );
+      if(info.what.toLowerCase().includes(this.props.search.toLowerCase())){
+        return(
+          <Cards key={i} index={i} info={info}/>
+        );
+      }        
     }
   }
 
+  /*getUserUID(){
+    var user = auth.currentUser;
+    if (user != null) {
+      console.log(user.uid);
+    }
+  }*/
+
   render() {
-    return (
-      <div id="board-container">
-        { this.state.transactionList.map(this.eachCard) }
-      </div>
-    );
+    if(typeof this.state.transactionList === 'string'){
+      return(
+        <div></div>
+      );
+    }else if(this.state.transactionList.length === 0){
+      return (
+        <h2>There are no requests at the moment...</h2>
+      );
+    }else{
+      return (
+        <div id="board-container">
+          { this.state.transactionList.map(this.eachCard) }
+        </div>
+      );
+    }    
   }
 }
 

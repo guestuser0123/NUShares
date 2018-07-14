@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/styles_forms.css';
-import { db } from '../../../firebase/firebase';
+import { auth, db } from '../../../firebase/firebase';
 // import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
@@ -63,7 +63,7 @@ class Forms extends Component {
 
   }
 
-  saveMessage(who,what,where,when,money,type,service){
+  saveMessage(who,what,where,when,money,type,service,author){
     var transactionRef = null;
     var address = null;
     if(type==="offer"){
@@ -76,13 +76,14 @@ class Forms extends Component {
       address = address + "/" + this.state.key;
       transactionRef = db.ref(address);
       transactionRef.update({
-        who: this.state.who,
-        what: this.state.what,
-        when: this.state.when,
-        where: this.state.where,
-        money: this.state.money,
-        type: this.state.type,
-        service: this.state.service,
+        who: who,
+        what: what,
+        when: when,
+        where: where,
+        money: money,
+        type: type,
+        service: service,
+        author: author,
         utc: this.getUTC()
       });
     }else{
@@ -96,6 +97,7 @@ class Forms extends Component {
         money: money,
         type: type,
         service: service,
+        author: author,
         utc: this.getUTC()
       });
     }
@@ -111,8 +113,9 @@ class Forms extends Component {
     var when = this.state.when;
     var type = this.state.type;
     var service = this.state.service;
+    var author = auth.currentUser.uid;
 
-    this.saveMessage(who, what, where, when, money, type, service);
+    this.saveMessage(who, what, where, when, money, type, service, author);
 
     document.getElementById('alertMsg-forms').style.display = 'block';
     /*setTimeout(function(){
@@ -143,7 +146,7 @@ class Forms extends Component {
   getUTC(){
     var dateTime = this.state.when;
     var year = dateTime.slice(0,4);
-    var month = dateTime.slice(5,7);
+    var month = dateTime.slice(5,7) - 1;
     var day = dateTime.slice(8,10);
     var hour = dateTime.slice(11,13);
     var min = dateTime.slice(14,16);

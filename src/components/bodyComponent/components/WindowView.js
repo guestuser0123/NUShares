@@ -3,6 +3,7 @@ import '../styles/styles_windowview.css';
 import CommentBoard from './CommentBoard';
 import FormModal from './FormModal';
 import AlertBox from './AlertBox';
+import { auth } from '../../../firebase/firebase';
 
 class WindowView extends Component{
   constructor(props){
@@ -10,7 +11,7 @@ class WindowView extends Component{
     this.displayDateTime = this.displayDateTime.bind(this);
 
     this.state = {
-      info: this.props.info
+      info: this.props.info,
     }
   }
 
@@ -68,13 +69,18 @@ class WindowView extends Component{
   render(){
     return(
       <div className='windowview-bigWrapper'>
-        <div>
-          <AlertBox info={this.state.info}/>  
-        </div>
 
-        <FormModal info={this.state.info} />
+        {
+          (auth.currentUser !== null && auth.currentUser.uid===this.state.info.author)
+          ?(
+            <div>
+              <AlertBox info={this.state.info}/>  
+              <FormModal info={this.state.info} />
+            </div>
+          )
+          :(<div></div>)
+        }  
         
-
         <div id='windowview-body'>
           Who:<h3>{this.props.info.who}</h3>
           What:<h3>{this.props.info.what}</h3>
@@ -86,7 +92,7 @@ class WindowView extends Component{
           <div>
             <h2>Comments:</h2>
           </div>
-          <CommentBoard dataAddress={this.props.info.type + "/" + this.props.info.key} />
+          <CommentBoard dataAddress={this.props.info.type + "/" + this.props.info.key} author={this.props.info.author}/>
         </div>
       </div>
     );

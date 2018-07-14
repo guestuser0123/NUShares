@@ -6,10 +6,6 @@ class LandingPage extends Component {
     return (
       <div className="container-fluid">
 
-        <h1>
-          LANDING PAGE (STOP AT PASSWORD RESET!!!!!!!!!!!!!!!!!!!)
-        </h1>
-
         <div>
           <BodyComponent />
         </div>

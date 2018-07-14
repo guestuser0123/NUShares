@@ -18,7 +18,7 @@ const Header = ({ authUser }) =>
 const HeaderAuth = () =>
   <header>
     <div className="logo">
-      <Link to="/">Logo</Link>
+      <Link to="/">NUShares</Link>
       </div>
 
       <nav>
@@ -34,7 +34,7 @@ const HeaderAuth = () =>
 const HeaderNonAuth = () =>
 <header>
   <div className="logo">
-    <Link to="/">Logo</Link>
+    <Link to="/">NUShares</Link>
     </div>
 
     <nav>

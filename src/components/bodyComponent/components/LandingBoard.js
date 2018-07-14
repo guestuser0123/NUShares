@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import OfferBoard from './OfferBoard';
 import RequestBoard from './RequestBoard';
-import { withStyles } from '@material-ui/core';
 import '../styles/styles_landingboard.css';
+import NavBar from './NavBar';
+import FormModal from './FormModal'
+import Search from './Search';
 
-const styles = theme => ({
+/*const styles = theme => ({
     MenuList: {
         width: '200px',
     },
@@ -17,117 +18,94 @@ const styles = theme => ({
     },
     primary: {},
     icon: {},
-});
+});*/
 
 class LandingBoard extends React.Component {
     constructor(props) {
         super(props);
-        this.filterNone = this.filterNone.bind(this);
-        this.filterCarpool = this.filterCarpool.bind(this);
-        this.filterFood = this.filterFood.bind(this);
-        this.filterPrinting = this.filterPrinting.bind(this);
         this.renderOffer = this.renderOffer.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.renderRequest = this.renderRequest.bind(this);
+        this.changeService = this.changeService.bind(this);
+        this.updateSearch = this.updateSearch.bind(this);
         this.state = {
-            services: 'all'
-        }
-    }
-    filterNone() {
-        this.setState({ services: "all" });
-        this.handleChange();
-    }
-
-    filterFood() {
-        this.setState({ services: "food" });
-        this.handleChange();
-    }
-
-    filterCarpool() {
-        this.setState({ services: "carpool" });
-        this.handleChange();
-    }
-
-    filterPrinting() {
-        this.setState({ services: "printing" });
-        this.handleChange();
-    }
-
-    handleChange(){ 
-        var btnContainer = document.getElementById("landing-board-nav");
-        var btns = btnContainer.getElementsByClassName("landing-board-btns");
-
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].addEventListener("click", function() {
-                var current = document.getElementsByClassName("active");
-                current[0].className = current[0].className.replace(" active", "");
-                this.className += " active";
-            });
+            services: this.props.services,
+            search: "",
         }
     }
 
-    renderOffer() {
+    changeService(newService){
+        this.setState({services: newService});
+    }
+
+    updateSearch(newSearch){
+        this.setState({search: newSearch});
+    }
+
+    renderOffer(emptyInfo) {
         return ( 
             <div className="landing-board-wrapper">
-                <div id = "landing-board-nav">
-                    <button className = "landing-board-btns active" onClick = { this.filterNone }>
-                        All Services
-                    </button>  
-                    <button className = "landing-board-btns" onClick = { this.filterFood }>
-                        Food
-                    </button>  
-                    <button className = "landing-board-btns" onClick = { this.filterCarpool }>
-                        Carpool
-                    </button>  
-                    <button className = "landing-board-btns" onClick = { this.filterPrinting }>
-                        Printing
-                    </button>  
-                </div>      
+                <div id="landing-board-searchArea">
+                    <div id="landing-board-nav">
+                        <NavBar updateService={this.changeService} />
+                    </div>
+                    <div id="landing-board-search">
+                        <Search filterWhat={this.updateSearch} />
+                    </div>    
+                    <div id="landing-board-create">
+                        <FormModal info={emptyInfo} />
+                    </div>                            
+                </div> 
                 <div className="landing-board-content"> 
-                    <OfferBoard service = { this.state.services } />  
+                    <OfferBoard service={this.state.services} search={this.state.search}/>  
                 </div>
             </div>
         );
     }
 
-    renderRequest() {
+    renderRequest(emptyInfo) {
         return ( 
             <div className="landing-board-wrapper">
-                <div id = "landing-board-nav">
-                    <button className = "landing-board-btns active" onClick = { this.filterNone }>
-                        All Services
-                    </button>  
-                    <button className = "landing-board-btns" onClick = { this.filterFood }>
-                        Food
-                    </button>  
-                    <button className = "landing-board-btns" onClick = { this.filterCarpool }>
-                        Carpool
-                    </button>  
-                    <button className = "landing-board-btns" onClick = { this.filterPrinting }>
-                        Printing
-                    </button>  
-                </div>      
+                <div id="landing-board-searchArea">
+                    <div id="landing-board-nav">
+                        <NavBar updateService={this.changeService} />
+                    </div>
+                    <div id="landing-board-search">
+                        <Search filterWhat={this.updateSearch} />
+                    </div>    
+                    <div id="landing-board-create">
+                        <FormModal info={emptyInfo} />
+                    </div>          
+                </div>     
                 <div className="landing-board-content"> 
-                    <RequestBoard service = { this.state.services } />  
+                    <RequestBoard service={this.state.services} search={this.state.search}/>  
                 </div>
             </div>
         );
     }
 
     render() {
+        var emptyInfo = {
+            who:"",
+            what:'',
+            where:'',
+            when:'',
+            money:'',
+            type:'',
+            key:'',
+            id:'',
+            service: ''
+        }
+
         if (this.props.type === "offer") {
             return (
-                this.renderOffer()
+                this.renderOffer(emptyInfo)
             );
         } else {
             return (
-                this.renderRequest()
+                this.renderRequest(emptyInfo)
             );
         }
     }
 }
 
-LandingBoard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(LandingBoard);
+export default LandingBoard;
