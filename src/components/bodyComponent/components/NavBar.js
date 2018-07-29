@@ -67,15 +67,16 @@ class NavBar extends Component {
                             id="menu-list-label">
                             Categories  &#9662;
                         </button>
-                    </div>
 
-                    <Collapse in={open} id="menu-list-collapse" style={{ transformOrigin: '0 0 0' }}>
-                        <button className="menu-list-btns active" id="all" onClick={this.changeService}>All Services</button>
-                        <button className="menu-list-btns" id="food" onClick={this.changeService}>Food</button>
-                        <button className="menu-list-btns" id="carpool" onClick={this.changeService}>Carpool</button>
-                        <button className="menu-list-btns" id="printing" onClick={this.changeService}>Printing</button>
-                    </Collapse>
-      
+                        <Collapse in={open} id="menu-list-collapse" style={{ transformOrigin: '0 0 0' }}>
+                            <button className="menu-list-btns active" id="all" onClick={this.changeService}>All Services</button>
+                            <button className="menu-list-btns" id="food" onClick={this.changeService}>Food</button>
+                            <button className="menu-list-btns" id="carpool" onClick={this.changeService}>Carpool</button>
+                            <button className="menu-list-btns" id="printing" onClick={this.changeService}>Printing</button>
+                        </Collapse>
+
+                    </div>
+                          
                 </ClickAwayListener>
             </div>
         );

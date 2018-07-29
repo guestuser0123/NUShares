@@ -1,19 +1,36 @@
 #alert-delete{
-    float: right;
-    background: white;
-    border: 2px solid #4d4d4d;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: #4d4d4d;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #808080;
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+}
 
-    font-size: 18px;
+.alert-wrapper{
+    width: 7em;
+    padding: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #alert-delete:hover{
-    background: coral;
-    color: white;
+    color: coral;
+}
 
-    border: 2px solid white;
+.alert-icon {
+    position: relative;
+    width: 4em;
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+.alert-label{
+    width: 1em;
+    margin-right: auto;
+    margin-left: auto;
+    color: #808080;
+    margin-top: 0;
+    position: absolute;
+    top: 31px;
+    right: 3em;
+    font-size: 16px;
 }

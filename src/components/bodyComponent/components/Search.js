@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../styles/styles_search.css';
-import SearchIcon from '@material-ui/icons/Search';
 
 class Search extends Component{
     constructor(props){
@@ -20,12 +19,10 @@ class Search extends Component{
         return(
             <div id="search-input">
                 <input type="text"
-                       placeholder="Search for something"
+                       placeholder="Search for something . . . "
                        value={this.state.content} 
                        onChange={this.updateContent} />
-                <div id="search-icon">
-                    <SearchIcon />
-                </div>
+                
             </div>
         );
         

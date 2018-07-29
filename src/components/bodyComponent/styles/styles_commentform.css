@@ -1,0 +1,148 @@
+#send-wrapper{
+    float: right;
+    font-size: 20px !important; 
+    cursor: pointer;
+    margin-top: 0.05em;
+}
+
+#send-wrapper p{
+    float: left;
+    padding: 2px;
+}
+
+#send-btn{
+    float: right;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    width: 1.3em !important;
+    height: 1.3em !important;
+    cursor: pointer;
+}
+
+#send-btn:hover{
+    color: #80ffff;
+}
+
+#comment-header{
+    margin-left: 0.2em;
+}
+
+/* Customize the label (the container) */
+.commentForm-checkbox {
+    float: left;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: normal !important;
+    font-size: 20px !important; 
+    font: default;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .commentForm-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .commentForm-checkbox:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .commentForm-checkbox input:checked ~ .checkmark {
+    background-color: #33cccc;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .commentForm-checkbox input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .commentForm-checkbox .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 8px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .commentForm-controls{
+      display: inline-block;
+      width: 100%;
+      margin-top: 0.5em;
+      padding-left: 10px;
+      padding-right: 10px;
+  }
+
+  
+
+
+/* Tooltip text */
+.commentForm-checkbox .tooltiptext {
+  visibility: hidden;
+  width: 190px;
+  background: #fbfbfb;
+  color: #555;
+  text-align: center;
+  font-size: 15px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -75px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+  padding: 5px;
+}
+
+/* Tooltip arrow */
+.commentForm-checkbox .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.commentForm-checkbox:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

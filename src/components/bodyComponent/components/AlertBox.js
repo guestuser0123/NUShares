@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { db } from '../../../firebase/firebase';
 import '../styles/styles_alertbox.css';
+import Delete from '@material-ui/icons/Delete';
 
 class AlertBox extends React.Component {
   state = {
@@ -25,7 +26,7 @@ class AlertBox extends React.Component {
     var commentRef = db.ref(fullDataAddress);
     commentRef.update({
       what: "This " + this.props.info.type + " has been removed... T_T",
-      utc: Date.now() + 900000,
+      utc: Date.now() + 2.88*(Math.pow(10, 7)) + 900000,
       who: "N.A.",
       when: "",
       where: "N.A.",
@@ -38,24 +39,27 @@ class AlertBox extends React.Component {
 
   renderDelete() {
     return (
-      <div>
-        <button id="alert-delete" onClick={this.handleClickOpen}>REMOVE</button>
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">{"Remove this post?"}</DialogTitle>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Close
-            </Button>
-            <Button onClick={this.handleRemove} color="primary" autoFocus>
-              Proceed
-            </Button>
-          </DialogActions>
-        </Dialog>
+      <div className='alert-wrapper'>
+        <div className='alert-icon'>
+          <Delete id="alert-delete" onClick={this.handleClickOpen}/>
+          <span className='alert-label'>Remove</span>
+          <Dialog
+            id='delete-modal-content'
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+            <DialogTitle id="alert-dialog-title">Remove this post?</DialogTitle>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleRemove} color="primary" autoFocus>
+                Proceed
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
     );
   }

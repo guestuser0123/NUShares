@@ -1,15 +1,58 @@
 #board-container {
+  margin-top: 3%;
+  margin-bottom: 2em;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 30px;
-  height: auto;
+  grid-gap: 20px;
+  margin-left: 2px;
+  margin-right: 3px;
 }
   
-@media (min-width: 500px) {
+@media (min-width: 750px) {
   #board-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+    grid-template-columns: repeat(auto-fit, minmax(170px, 342px));
     grid-gap: 30px;
-    height: auto;
+    margin-left: 1px;
+    margin-right: 1px;
   }
+}
+
+.progress-tracker{
+  margin-top: 1px;
+}
+
+#board-empty-wrapper{
+  text-align: center;
+  width: 12em;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  font-size: 22px;
+  margin-top: 2em;
+}
+
+.board-extend-btn{
+  width: 8em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+}
+
+.board-extend-btn > button{
+  background-color: white;
+  color: #a6a6a6;
+  border: 2px solid #cccccc;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 7em;
+  padding: 8px;
+  font-size: 18px;
+}
+
+.board-extend-btn:hover > button{
+  color: aqua;
+  border: 2px solid aqua;
+  outline: none;
 }

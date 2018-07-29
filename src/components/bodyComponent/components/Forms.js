@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../styles/styles_forms.css';
 import { auth, db } from '../../../firebase/firebase';
-// import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import DateTime from 'react-datetime';
+import '../../../../node_modules/react-datetime/css/react-datetime.css';
+import * as moment from 'moment';
 
 class Forms extends Component {
 
@@ -16,12 +17,13 @@ class Forms extends Component {
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleServiceChange = this.handleServiceChange.bind(this);
     this.saveMessage = this.saveMessage.bind(this);
-    this.convertDateTime = this.convertDateTime.bind(this);
     this.getWhen = this.getWhen.bind(this);
-    this.getUTC = this.getUTC.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.momentToString = this.momentToString.bind(this);
+    this.momentToDatetime = this.momentToDatetime.bind(this);
 
     this.state = {
+      editingTime: false,
       who: this.props.info.who,
       what: this.props.info.what,
       when: this.props.info.when,
@@ -30,6 +32,7 @@ class Forms extends Component {
       type: this.props.info.type,
       service: this.props.info.service,
       key: this.props.info.key,
+      dateTime: this.props.info.dateTime,
       utc: ''
     };
   }
@@ -51,7 +54,11 @@ class Forms extends Component {
   }
 
   handleTimeChange(e){
-    this.setState({ when: e.target.value });
+    var moment = e;
+    if(typeof moment === 'string'){
+      return;
+    }
+    this.setState({ when: e});
   }
 
   handleTypeChange(e){
@@ -62,104 +69,153 @@ class Forms extends Component {
     this.setState({ service: e.target.value });
 
   }
-
-  saveMessage(who,what,where,when,money,type,service,author){
-    var transactionRef = null;
-    var address = null;
-    if(type==="offer"){
-        address = "transaction/offer";
-    }else{
-        address = "transaction/request";
+  
+  // Gets the username base on UID
+  componentDidMount(){
+    if(auth.currentUser === null){
+      return;
     }
 
+    this.firebaseRef = db.ref('users/' + auth.currentUser.uid);
+    var that = this;
+    this.firebaseRef.once("value", function(snapshot){
+    var username = snapshot.val().username;
+        // 'this' means something else since you are inside the snapshot now
+        that.setState({ who: username });
+    })
+  }
+
+  componentWillUnmount(){
+    if(this.firebaseRef !== undefined){
+      this.firebaseRef.off('value');
+    }      
+  }
+
+  saveMessage(who,what,where,when,money,type,service,author,utc,dateTime){
     if(this.state.key !== ""){
-      address = address + "/" + this.state.key;
-      transactionRef = db.ref(address);
-      transactionRef.update({
-        who: who,
-        what: what,
-        when: when,
-        where: where,
-        money: money,
-        type: type,
-        service: service,
-        author: author,
-        utc: this.getUTC()
-      });
-    }else{
-      transactionRef = db.ref(address);
-      var newTransactionRef = transactionRef.push();
-      newTransactionRef.set({
-        who: who,
-        what: what,
-        where: where,
-        when: when,
-        money: money,
-        type: type,
-        service: service,
-        author: author,
-        utc: this.getUTC()
-      });
+      // existing data change from offer to request or vice versa
+      if(this.state.type !== this.props.info.type){
+        var oldAddressRef = db.ref('transaction/'+this.props.type+'/'+this.state.key); 
+        oldAddressRef.remove();
+      }else{
+        // existing data remains same type
+        var address = 'transaction/'+this.state.type+'/'+this.state.key;
+        var transactionRef = db.ref(address);
+        transactionRef.update({
+          who: who,
+          what: what,
+          when: when,
+          dateTime: dateTime,
+          where: where,
+          money: money,
+          type: type,
+          service: service,
+          author: author,
+          utc: utc,
+          key: (transactionRef.toString().slice(50)).replace(type+'/',''),
+        }); 
+        return;
+      }       
     }
+    // new data
+    transactionRef = db.ref("transaction/" + this.state.type);
+    var newTransactionRef = transactionRef.push();
+    newTransactionRef.set({
+      who: who,
+      what: what,
+      where: where,
+      when: when,
+      dateTime: dateTime,
+      money: money,
+      type: type,
+      service: service,
+      author: author,
+      utc: utc,
+      key: (newTransactionRef.toString().slice(50)).replace(type+'/',''),
+    });
   }
 
   onSubmit(e){
     e.preventDefault();
 
-    var who = this.state.who;
-    var where = this.state.where;
-    var money = this.state.money;
-    var what = this.state.what;
-    var when = this.state.when;
-    var type = this.state.type;
-    var service = this.state.service;
-    var author = auth.currentUser.uid;
-
-    this.saveMessage(who, what, where, when, money, type, service, author);
-
-    document.getElementById('alertMsg-forms').style.display = 'block';
-    /*setTimeout(function(){
-      document.getElementById('alertMsg-forms').style.display = 'none';
-    }, 3000);*/
-
-    //document.getElementById('submissionForm').reset();
+    if(this.state.when !== ''){
+      var who = this.state.who;
+      var where = this.state.where;
+      var money = this.state.money;
+      var what = this.state.what;
+      var when = this.momentToString();
+      var type = this.state.type;
+      var utc= this.getUTC();
+      var service = this.state.service;
+      var author = auth.currentUser.uid;
+      var dateTime = this.momentToDatetime();
+  
+      this.saveMessage(who, what, where, when, money, type, service, author, utc, dateTime);
+  
+      document.getElementById('alertMsg-forms').style.display = 'block';
+      /*setTimeout(function(){
+        document.getElementById('alertMsg-forms').style.display = 'none';
+      }, 3000);*/
+  
+      //document.getElementById('submissionForm').reset();
+    }else{
+      document.getElementById('errorMsg-forms').style.display = 'block';
+      setTimeout(function(){
+        document.getElementById('errorMsg-forms').style.display = 'none';
+      }, 3000);
+    }
   }
 
   getWhen(){
     if(this.state.when === ''){
-      return this.convertDateTime();
+      var newMoment = moment();
+      this.setState({when: moment()});
+      return newMoment;
+    }else if(typeof this.state.when === 'string'){
+      var dateTime = this.state.dateTime;
+      var year = dateTime.slice(12,dateTime.length);
+      var month = dateTime.slice(6,8);
+      var day = dateTime.slice(9,11);
+      var hour = dateTime.slice(0,2);
+      var min = dateTime.slice(3,5);
+      var newMoment = moment({y: year, M: month, d: day, h: hour, m: min });
+      this.setState({when: newMoment});
+      return newMoment;
     }else{
       return this.state.when;
     }
   }
 
-  convertDateTime(){
-    var currentDateTime = (new Date()).toLocaleString();
-    var month = currentDateTime.slice(3,5);
-    var day = currentDateTime.slice(0,2);
-    var year = currentDateTime.slice(6,10);
-    var time = currentDateTime.slice(12,currentDateTime.length);
+  momentToDatetime(){
+    var moment = this.state.when;
+    return moment.format("HH:mm MM DD YYYY").toString();
+  }
 
-    return year + "-" + month + "-" + day + "T" + time;
+  momentToString(){
+    if(typeof this.state.when === 'string'){
+      return this.state.when;
+    }
+    var moment = this.state.when;
+    return moment.format("h:mm A ddd, MMM D 'YY").toString();
   }
 
   getUTC(){
-    var dateTime = this.state.when;
-    var year = dateTime.slice(0,4);
-    var month = dateTime.slice(5,7) - 1;
-    var day = dateTime.slice(8,10);
-    var hour = dateTime.slice(11,13);
-    var min = dateTime.slice(14,16);
+    var dateTime = this.momentToDatetime();
+    var year = dateTime.slice(12,dateTime.length);
+    var month = dateTime.slice(6,8) - 1;
+    var day = dateTime.slice(9,11);
+    var hour = dateTime.slice(0,2);
+    var min = dateTime.slice(3,5);
     return Date.UTC(year, month, day, hour, min);
   }
 
   render(){
-    const {input} = this.state;
     return (
-      <div id="container-forms">
+      <div id="container-forms" onClick={this.checkClick}>
+        <h1 id="header-forms">NUShares</h1>
         <div id="wrapper-forms">
-          <h1 id="header-forms">NUShares</h1>
           <div id="alertMsg-forms">Sent Successfully!</div>
+          <div id="errorMsg-forms">Invalid date-time input</div>
           <form id="submissionForm" onSubmit={this.onSubmit}>
             <p>
               <label>Name/ID</label>
@@ -172,6 +228,18 @@ class Forms extends Component {
               </input>
             </p>
 
+            <div>
+              <label>Meeting Time</label>
+              <div className='container' noValidate>
+                <DateTime value={this.getWhen()}
+                          id='when'
+                          onChange={this.handleTimeChange}
+                          inputProps={{ required: true }}
+                          dateFormat="DD/MM/YYYY"
+                />
+              </div>
+            </div>
+
             <p>
               <label>What</label>
               <textarea
@@ -183,26 +251,8 @@ class Forms extends Component {
               </textarea>
             </p>
 
-            <div>
-              <label>When</label>
-              <div className='container' noValidate>
-                <TextField
-                  id="datetime-local"
-                  type="datetime-local"
-                  defaultValue={this.getWhen()}
-                  className='textField'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  onChange={this.handleTimeChange}
-                />
-              </div>
-            </div>
-
-            <p></p>
-
             <p>
-              <label>Where</label>
+              <label>Meeting / Collection Point</label>
               <textarea
                      name='where'
                      value={this.state.where}

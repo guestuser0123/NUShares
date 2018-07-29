@@ -66,6 +66,7 @@ class Tabs extends React.Component{
     if(this.props.active == null || Object.keys(this.state.sizes).length === 0){
       return{left: '0', right: '100%'};
     }
+
     const size = this.state.sizes[this.props.active];
     return {left: `${size.left}px`,
             right: `${size.right}px`,

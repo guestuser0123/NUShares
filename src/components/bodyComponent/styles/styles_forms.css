@@ -14,12 +14,13 @@
 #container-forms form{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 26px;
 }
 
 #container-forms form > *{
   min-width: 0;
-  padding: 20px;
+  padding: 10px;
+
 }
 
 #container-forms form label{
@@ -36,10 +37,10 @@
 }
 
 #container-forms form input, #container-forms form textarea, .forms-select select{
-  width:90%;
+  width:100%;
   padding:12px;
   border: 1px solid #c9e6ff;
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 5px;
 }
 
@@ -79,15 +80,20 @@
   display: none;
 }
 
+#errorMsg-forms{
+  padding: 10px;
+  text-align: center;
+  color: white;
+  margin-bottom: 10px;
+  background: #ff3333;
+  display: none;
+}
+
 #header-forms{
   text-align: center;
   padding-top: 20px;
-  margin-top: 1em;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
 }
 
 .textField {
@@ -99,3 +105,13 @@
 .forms-select select {
   width: 100%
 }
+
+.container{
+  width: 100%;
+  padding: 0;
+}
+
+.form-control{
+  height: 2.8em;
+}
+

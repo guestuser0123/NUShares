@@ -1,6 +1,6 @@
 #body-wrapper{
-    display: block;
-    height: auto;
+    min-width: 500px;
+    overflow-x: auto;
 }
 
 #body-formModal{

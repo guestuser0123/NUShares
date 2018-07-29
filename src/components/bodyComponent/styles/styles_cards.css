@@ -1,18 +1,47 @@
-.card{
-  text-align: center;
-  padding: 15px;
-  border-top: 10px solid #b3e6ff;
-  box-shadow: 0 0 8px 0 rgba(72,94,116,0.6);
+.card-wrapper{
   height: 170px;
   border-radius: 1px;
-}
-
-.card:hover{
-  border-top: 10px solid #00ffff;
+  box-shadow: 0 0 8px 0 rgba(72,94,116,0.3);
   cursor: pointer;
 }
 
-.card:hover #card-service{
+.card-wrapper:hover{
+  box-shadow: 0 0 8px 0 rgba(72,94,116,0.8);
+}
+
+.card-left{
+  float: left;
+  width: 40%;
+  height: 100%;
+  display: block;
+  background: #29293d;
+  border-right: 5px solid #d9d9d9;
+}
+
+.icon-wrapper{
+  float: none;
+  width: 2.0em;
+  margin-top: 42%;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.bigIcon{
+  color: white !important;
+  width: 1.5em !important;
+  height: 1.5em !important;
+}
+
+.card-right{
+  display: block;
+  position: relative;
+  float: right;
+  width: 60%;
+  height: 100%;
+  padding: 0.3em;
+}
+
+.card-wrapper:hover #card-service{
   border: 2px solid #ff1a75;
   color: #ff1a75
 }
@@ -33,12 +62,16 @@
 
 .card-modalContent{
   background: white;
-  max-width: 600px;
-  margin: 5% auto;
+  max-width: 700px;
+  margin: 3% auto;
   padding: 20px;
+  padding-left: 0;
+  padding-right: 0;
   width: 70%;
   box-shadow: 0 0 20px 0 rgba(72,94,116,0.6);
   border-radius: 5px;
+  z-index: 2;
+  height: 52em;
   /*box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0, 0.2),
               0 7px 20px 0 rgba(0, 0, 0, 0, 0.15);*/
 }
@@ -47,6 +80,7 @@
   color: #ccc;
   float: right;
   font-size: 30px;
+  padding-right: 1em;
 }
 
 .card-closeButton:hover, .closeButton:focus{
@@ -56,28 +90,35 @@
 }
 
 #card-msg{
-  width: 80%;
-  height: 65%;
+  display: flex;
+  height: 100%;
+  text-align: center;
   margin-left: auto;
   margin-right: auto;
   font-size: 15px;
   padding: 5px;
-  display: flex;
   justify-content: center;
   align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  min-width: 1%;
+}
+
+#card-text{
+  display: inline-block;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  width: 100%;  
 }
 
 #card-service{
   width: max-content;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
-  font-size: 14px;
-  padding: 3px 8px 3px 8px;
-  border: 2px solid #cccccc;
-  color: #cccccc;
-  border-radius: 10px;
+  margin-top: 15%;
+  font-size: 11px;
+  padding: 0px 4px 0.5px 4px;
+  border: 2px solid white;
+  color: white;
+  border-radius: 8px;
 }
 
 @keyframes modalOpen {
@@ -86,9 +127,11 @@
 }
 
 #card-smallInfo{
-  position: relative;
   float: right;
-  bottom: 0.8em;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0.2em 0.4em;
 }
 
 #card-comments{
@@ -102,26 +145,57 @@
   color: #cccccc;
 }
 
-@media (min-width: 500px) {
-  .card{
-    text-align: center;
-    padding: 20px;
-    border-top: 10px solid #b3e6ff;
-    box-shadow: 0 0 8px 0 rgba(72,94,116,0.6);
-    height: 170px;
-    border-radius: 1px;
-  }
-  
+@media (min-width: 600px) {  
   #card-msg{
-    width: 80%;
-    height: 65%;
+    width: 90%;
+    height: 90%;
+    font-size: 20px;
+    padding: 5px;  
+  }
+  #card-service{
+    width: max-content;
     margin-left: auto;
     margin-right: auto;
-    font-size: 20px;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-top: 10%;
+    font-size: 14px;
+    padding: 2px 8px 3px 8px;
+    border-radius: 10px;
+  }
+  .bigIcon{
+    width: 2em !important;
+    height: 2em !important;
+  }
+  .icon-wrapper{
+    width: 2.5em;
+    margin-top: 30%;
   }
 }
+
+.card-wrapper:hover #card-print-icon{
+  color: #99ffff;
+}
+
+.card-wrapper:hover #card-food-icon{
+  color: #ffe066;
+}
+
+.card-wrapper:hover #card-carpool-icon{
+  color: #ff6666;
+}
+
+.card-wrapper:hover #card-nothing-icon{
+  color: #d9d9d9;
+}
+
+.printing{
+  border-right: 5px solid #33ccff;
+}
+
+.food{
+  border-right: 5px solid #ffcc00;
+}
+
+.carpool{
+  border-right: 5px solid #ff4d4d;
+}
+

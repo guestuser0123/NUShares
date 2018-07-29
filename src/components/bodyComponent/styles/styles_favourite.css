@@ -1,0 +1,83 @@
+.nofav, .fav{
+    color: #808080;
+    width: 1.4em !important;
+    height: 1.4em !important;
+    margin: 0 !important;
+    cursor: pointer;
+}
+
+.fav{
+    color: #ff4d4d;
+}
+
+.fav:hover, .nofav:hover{
+    color:#ff0000;
+}
+
+.icon-container{
+    width: 7em;
+    padding: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fav-label{
+    width: 1em;
+    margin-right: auto;
+    margin-left: auto;
+    color: #808080;
+    margin-top: 0;
+    position: absolute;
+    top: 31px;
+    right: 2.9em;
+}
+
+/* Tooltip container */
+.icon {
+    width: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Tooltip text */
+.icon .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background: #fbfbfb;
+    color: #555;
+    text-align: center;
+    font-size: 14px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -75px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.icon .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.icon:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+

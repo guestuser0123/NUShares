@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/styles_form_modal.css';
 import Forms from './Forms';
+import Edit from '@material-ui/icons/Edit';
 
 class FormModal extends Component{
   constructor(props){
@@ -38,9 +39,14 @@ class FormModal extends Component{
   renderClick(){
     if(this.props.info.key !== ""){
       return(
-        <div id="bigWrapper">
-          <button id="modalButtonEdit" onClick={this.outsideClick}>EDIT</button>
-
+        <div>
+          <div className='edit-icon-wrapper'>
+            <div className="bigWrapper">
+              <Edit id="modalButtonEdit"
+                      onClick={this.openModal}/>
+              <span className="edit-label">Edit</span>
+            </div>
+          </div>
           <div id="modalBox" onClick={this.outsideClick}>
             <div id="modalContent">
               <span id="closeButton"
@@ -54,7 +60,7 @@ class FormModal extends Component{
       );
     }else{
       return(
-        <div id="bigWrapper">
+        <div className="createWrapper">
           <button id="modalButton" onClick={this.outsideClick}>CREATE</button>
 
           <div id="modalBox" onClick={this.outsideClick}>
@@ -74,14 +80,17 @@ class FormModal extends Component{
   renderUnclick(){
     if(this.props.info.key !== ""){
       return(
-        <div id="bigWrapper">
-          <button id="modalButtonEdit"
-                  onClick={this.openModal}>EDIT</button>
+        <div className='edit-icon-wrapper'>
+          <div className="bigWrapper">
+            <Edit id="modalButtonEdit"
+                    onClick={this.openModal}/>
+            <span className="edit-label">Edit</span>
+          </div>
         </div>
       );
     }else{
       return(
-        <div id="bigWrapper">
+        <div className="createWrapper">
           <button id="modalButton"
                   onClick={this.openModal}>CREATE</button>
         </div>
