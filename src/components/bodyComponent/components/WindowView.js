@@ -4,7 +4,6 @@ import CommentBoard from './CommentBoard';
 import FormModal from './FormModal';
 import AlertBox from './AlertBox';
 import { auth } from '../../../firebase/firebase';
-import PersonPin from '@material-ui/icons/PersonPin';
 import Print from '@material-ui/icons/Print';
 import Fastfood from '@material-ui/icons/Fastfood';
 import DirectionsCar from '@material-ui/icons/DirectionsCar'
@@ -14,6 +13,12 @@ import AccessTime from '@material-ui/icons/AccessTime';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import Favourite from './Favourite';
 import ReplyModal from './ReplyModal';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import Event from '@material-ui/icons/Event';
+import {
+  Link
+} from 'react-router-dom';
+import * as routes from '../../../constants/routes';
 
 class WindowView extends Component{
   constructor(props){
@@ -46,18 +51,33 @@ class WindowView extends Component{
                   ?(<DirectionsCar className='window-icon'/>)
                   :(this.props.info.service === 'food')
                     ?(<Fastfood className='window-icon'/>)
-                    :(<Warning className='window-icon'/>)
+                    :(this.props.info.service === 'notes')
+                      ?(<LibraryBooks className='window-icon'/>)
+                      :(this.props.info.service === 'events')
+                        ?(<Event className='window-icon'/>)
+                        :(<Warning className='window-icon'/>)
                 }
               </div>     
             </div>
             <div className='window-top-info'>
-              <div className='window-top-authorInfo'>
-                <PersonPin id='person-icon' className="window-icons"/>
-                <div className='window-person'>{this.props.info.who}</div>
-              </div>
               <div className='window-what'>
                 {this.props.info.what}
-              </div>     
+              </div>  
+              <div className='window-top-authorInfo'>
+                  <div className='window-person'>
+                      <p>{"posted by "}
+                          {
+                            (auth.currentUser!==null && auth.currentUser.uid === this.props.info.author)
+                            ?(<Link to={routes.ACCOUNT}>
+                                <span className='userLink'>{this.props.info.who}</span>
+                              </Link>)
+                            :(<Link to={{pathname:'/profile', state:{uid: this.props.info.author}}}>
+                                <span className='userLink'>{this.props.info.who}</span>
+                              </Link>)
+                          } 
+                      </p>
+                  </div>          
+              </div>      
             </div>       
           </div>
           <div id='windowview-body-bottom'>

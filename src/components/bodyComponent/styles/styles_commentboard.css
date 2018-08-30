@@ -25,19 +25,20 @@
 }
 
 #comment-title{
-  padding-bottom: 0.36em;
   font-size: 25px;
   color: #404040;
   border-bottom: 1px solid #404040;
+  padding-bottom: 0.1em;
 }
 
 #forum-icon{
   color:#404040;
-  float: left;
   margin-right: 0.5em;
+  height: 1em !important;
+  width: 1em !important;
 }
 
 .commentboard-header{
   height: 2em;
-  margin-top: 3em;
+  margin-top: 2em;
 }

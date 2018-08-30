@@ -6,6 +6,8 @@ import Print from '@material-ui/icons/Print';
 import Fastfood from '@material-ui/icons/Fastfood';
 import DirectionsCar from '@material-ui/icons/DirectionsCar'
 import Warning from '@material-ui/icons/Warning';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import Event from '@material-ui/icons/Event';
 
 class Cards extends Component{
   constructor(props){
@@ -57,7 +59,7 @@ class Cards extends Component{
   renderUnclick(){
     return(
       <div className='card-wrapper' onClick={this.detailedView}>
-        <div className={"card-left "+this.props.info.service}>
+        <div className={"card-left "+this.props.info.service + ' ' + this.props.info.type}>
           <div className='icon-wrapper'>
             {
               (this.props.info.service === 'printing')
@@ -66,7 +68,11 @@ class Cards extends Component{
                 ?(<DirectionsCar className='bigIcon' id='card-carpool-icon'/>)
                 :(this.props.info.service === 'food')
                   ?(<Fastfood className='bigIcon' id='card-food-icon'/>)
-                  :(<Warning className='bigIcon' id='card-nothing-icon'/>)
+                  :(this.props.info.service === 'notes')
+                    ?(<LibraryBooks className='bigIcon' id='card-notes-icon'/>)
+                    :(this.props.info.service === 'events')
+                      ?(<Event className='bigIcon' id='card-events-icon'/>)
+                      :(<Warning className='bigIcon' id='card-nothing-icon'/>)
             }
           </div>
           <div id="card-service"># {this.props.info.service}</div>
@@ -86,7 +92,7 @@ class Cards extends Component{
     return(
       <div>
         <div className='card-wrapper' onClick={this.detailedView}>
-          <div className={"card-left " + this.props.info.service}>
+          <div className={"card-left " + this.props.info.service + ' ' + this.props.info.type}>
             <div className='icon-wrapper'>
               {
                 (this.props.info.service === 'printing')
@@ -95,7 +101,11 @@ class Cards extends Component{
                   ?(<DirectionsCar className='bigIcon' id='card-carpool-icon'/>)
                   :(this.props.info.service === 'food')
                     ?(<Fastfood className='bigIcon' id='card-food-icon'/>)
-                    :(<Warning className='bigIcon' id='card-nothing-icon'/>)
+                    :(this.props.info.service === 'notes')
+                      ?(<LibraryBooks className='bigIcon' id='card-notes-icon'/>)
+                      :(this.props.info.service === 'events')
+                        ?(<Event className='bigIcon' id='card-events-icon'/>)
+                        :(<Warning className='bigIcon' id='card-nothing-icon'/>)
               }
             </div>
             <div id="card-service"># {this.props.info.service}</div>

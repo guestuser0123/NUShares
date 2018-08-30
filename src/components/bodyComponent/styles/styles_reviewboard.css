@@ -1,0 +1,48 @@
+.reviewBoard-wrapper{
+    height: 43.39em;
+    width: 100%;
+    box-shadow: 0 0 8px 0 rgba(72,94,116,0.8);
+    margin-top: 10px;
+}
+
+.review-board{
+    width: 100%;
+    height: 39.4em;
+    overflow-y: auto;
+    padding: 5px;
+    padding: 1.5em;
+}
+
+.review-board > p{
+    font-size: 1em;
+    width: 100%;
+    text-align: center;
+}
+
+#emptyHeader{
+    font-size: 3em;
+    margin-top: 35%;
+}
+
+.review-delete{
+    cursor: pointer;
+}
+
+.review-delete:hover{
+    color: #ff3333 !important;
+}
+
+.review-Modal{
+    background: #333333;
+    height: 4em;
+    width: 100%;
+    display: inline-block;
+    border-top: 3px solid white;
+}
+
+.reviewboard-header{
+    font-size: 2em;
+    background: #333333;
+    color: white;
+    padding: 0.5em;
+}

@@ -183,7 +183,7 @@ class DashBoard extends Component{
     if(auth.currentUser === null){
       return(
         <div className='dash-empty-wrapper'>
-          <span>Login to view and edit your dashboard</span>
+          <span>Sign in to view and edit your dashboard</span>
           <div id='login-link'><SignInLink/></div>
         </div>
       );

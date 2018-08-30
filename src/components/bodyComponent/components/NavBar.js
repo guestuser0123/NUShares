@@ -70,9 +70,11 @@ class NavBar extends Component {
 
                         <Collapse in={open} id="menu-list-collapse" style={{ transformOrigin: '0 0 0' }}>
                             <button className="menu-list-btns active" id="all" onClick={this.changeService}>All Services</button>
-                            <button className="menu-list-btns" id="food" onClick={this.changeService}>Food</button>
                             <button className="menu-list-btns" id="carpool" onClick={this.changeService}>Carpool</button>
+                            <button className="menu-list-btns" id="food" onClick={this.changeService}>Food</button>
                             <button className="menu-list-btns" id="printing" onClick={this.changeService}>Printing</button>
+                            <button className="menu-list-btns" id="notes" onClick={this.changeService}>Notes/Textbooks</button>
+                            <button className="menu-list-btns" id="events" onClick={this.changeService}>Events/Manpower</button>
                         </Collapse>
 
                     </div>

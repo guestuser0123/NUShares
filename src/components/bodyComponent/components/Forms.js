@@ -290,9 +290,11 @@ class Forms extends Component {
                         value={this.state.service}
                         onChange={this.handleServiceChange}>
                   <option value="">Select service type</option>
-                  <option value={"food"}>Food</option>
                   <option value={"carpool"}>Carpool</option>
+                  <option value={"food"}>Food</option>
                   <option value={"printing"}>Printing</option>
+                  <option value={"notes"}>Notes/Textbooks</option>
+                  <option value={"events"}>Events/Manpower</option>
                 </select>
             </p>
 

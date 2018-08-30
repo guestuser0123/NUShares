@@ -15,7 +15,6 @@
   height: 100%;
   display: block;
   background: #29293d;
-  border-right: 5px solid #d9d9d9;
 }
 
 .icon-wrapper{
@@ -45,6 +44,11 @@
   border: 2px solid #ff1a75;
   color: #ff1a75
 }
+
+.card-wrapper:hover #card-comments, .card-wrapper:hover #card-icon{
+  color: #ff1a75 !important;
+}
+
 
 #card-modalBox{
   display: block;
@@ -171,31 +175,41 @@
   }
 }
 
-.card-wrapper:hover #card-print-icon{
-  color: #99ffff;
+#card-print-icon{
+  color: #00e6e6 !important;
 }
 
-.card-wrapper:hover #card-food-icon{
-  color: #ffe066;
+#card-food-icon{
+  color: #efb509 !important;
 }
 
-.card-wrapper:hover #card-carpool-icon{
-  color: #ff6666;
+#card-carpool-icon{
+  color: #ff6666 !important;
 }
 
-.card-wrapper:hover #card-nothing-icon{
-  color: #d9d9d9;
+#card-notes-icon{
+  color: #669999 !important;
 }
 
-.printing{
-  border-right: 5px solid #33ccff;
+#card-events-icon{
+  color: #cc0044 !important;
 }
 
-.food{
-  border-right: 5px solid #ffcc00;
+
+#card-nothing-icon{
+  color: #d9d9d9 !important;
 }
 
-.carpool{
-  border-right: 5px solid #ff4d4d;
+.offer{
+  background: #1a2930;
+}
+
+.request{
+  background: #f8f4ec;
+}
+
+.request > #card-service{
+  border: 2px solid #8c8c8c;
+  color: #737373;
 }
 
