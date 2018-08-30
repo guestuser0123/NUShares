@@ -1,0 +1,14 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "transaction": {
+      "offer": {
+        ".indexOn": ["utc"]
+      },
+      "request": {
+        ".indexOn": ["utc"]
+      }
+    }    
+  }
+}
