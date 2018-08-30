@@ -46,10 +46,12 @@ class PasswordChangeForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
+        <label for='newPw'>NEW PASSWORD</label>
         <input
           value={passwordOne}
           onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
           type="password"
+          id='newPw'
           placeholder="New Password"
         />
         <input
@@ -59,7 +61,7 @@ class PasswordChangeForm extends Component {
           placeholder="Confirm New Password"
         />
         <button disabled={isInvalid} type="submit">
-          Reset My Password
+          RESET PASSWORD
         </button>
 
         { error && <p>{error.message}</p> }

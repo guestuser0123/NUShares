@@ -1,17 +1,17 @@
 import React from 'react';
-
 import AuthUserContext from '../AuthUserContext';
-import { PasswordForgetForm } from './pwForget';
-import PasswordChangeForm from './pwChange';
 import withAuthorization from '../withAuthorization';
+import ProfilePage from './profile';
+
+var location;
 
 const AccountPage = () =>
   <AuthUserContext.Consumer>
     {authUser =>
       <div>
-        <h1>Account: {authUser.email}</h1>
-        <PasswordForgetForm />
-        <PasswordChangeForm />
+        <div className="acc-container">
+          <ProfilePage location={location={state:authUser}} showAccPage={true} uid={authUser.uid}/>
+        </div>
       </div>
     }
   </AuthUserContext.Consumer>

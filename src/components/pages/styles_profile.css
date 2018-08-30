@@ -1,0 +1,137 @@
+.profile-page-body{
+    max-width: 62em;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.profile-left{
+    float: left;
+    width: 26em;
+    min-width: 26em;
+    margin-top: 10px;
+}
+
+.profile-reviewBoard{
+    width: 60%;
+    float: left;
+    margin-left: 5px;
+}
+
+.profile-userInfo{
+    padding: 0.5em;
+    font-size: 1.5em;
+    background-color: #1a1a1a;
+    display: flex;
+    box-shadow: 0 0 8px 0 rgba(72,94,116,0.8);
+}
+
+#profile-icon{
+    height: 6em !important;
+    width: 6em !important;
+    color: #33a0ff;
+}
+
+.profile-iconWrapper{
+    width: 4.5em;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.profile-userIcon{
+    width: 40%;
+    float: left;
+}
+
+.profile-userControl{
+    float: left;
+}
+
+.profile-acc{
+    padding: 1.5em;
+    background: #1a1a1a;
+}
+
+.profile-acc-header{
+    color: #33a0ff;
+    font-size: 1em;
+    margin-bottom: 1em;
+    width: 100%;
+    padding: none;
+    text-align: center;
+}
+
+.profile-acc > form > input{
+    width:100%;
+    padding:10px;
+    border: none;
+    border-bottom: 1px solid #c9e6ff;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: transparent;
+    color: white;
+}
+
+.profile-acc > form > label{
+    font-size: 11px;
+    color: #cccccc;
+    font-style: inherit;
+    font-weight: 0 !important;
+    margin-top: 1em;
+    width: 100%;
+    text-align: right;
+}
+
+.profile-acc > form > button{
+    color: white;
+    width: 100%;
+    padding: 13px;
+    font-size: 15px;
+    background: #1f1f1f;
+    border: none;
+    margin-bottom: 1em; 
+    cursor: pointer;
+}
+
+.profile-acc button:hover{
+    background: #ff3333; 
+}
+
+.profile-reviewLabel{
+    width: 100%;
+    padding-bottom: 36px;
+}
+
+.acc-review{
+    display: inline-block;
+    width: 100%;
+    font-size: 16px;
+}
+
+.acc-username{
+    margin-top: 1.2em;
+    max-height: 1.5em;
+    overflow-y: auto;
+    vertical-align: middle;
+    color: #33a0ff;
+}
+
+.ratingCount-label{
+    float: left;
+    margin-right: 0.5em;
+    border: 2px solid #ff3333;
+    color: #ff3333;
+    border-radius: 15px;
+    padding: 0px 10px;
+    cursor: default;
+}
+
+.reviewCount-label{
+    float: left;
+    border: 2px solid #99cfff;
+    color: #99cfff;
+    border-radius: 15px;
+    padding: 0px 10px;
+    cursor: default;
+}

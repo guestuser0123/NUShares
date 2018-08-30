@@ -1,0 +1,48 @@
+.pwForget-wrapper input, .pwForget-wrapper textarea{
+    width:100%;
+    padding:10px;
+    border: 1px solid #c9e6ff;
+    font-size: 18px;
+    margin-top: 10px;
+}
+  
+.pwForget-wrapper{
+    width: 35em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    padding: 30px;
+    border-radius: 1px;
+    box-shadow: 0 0 8px 0 rgba(72,94,116,0.3);
+}  
+
+.pwForget-wrapper > form > label{
+    display: none;
+}
+  
+.pwForget-wrapper button{
+    margin-top: 10px;
+    background-color: #e6e6e6;
+    border: none;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+  
+.pwForget-wrapper button:hover{
+    color: red !important;
+    border: none !important;
+}
+
+#success-msg{
+    padding: 10px;
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+    background: #79c879;
+    display: none;
+}
+
+#pwForget-link{
+    color: red !important;
+}

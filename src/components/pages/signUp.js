@@ -6,9 +6,10 @@ import {
 
 import * as routes from '../../constants/routes';
 import { auth, db } from '../../firebase';
+import './styles_signUp.css';
 
 const SignUpPage = ({ history }) =>
-  <div>
+  <div className='signUp-wrapper'>
     <h1>SignUp</h1>
     <SignUpForm history={history} />
   </div>
@@ -71,7 +72,7 @@ class SignUpForm extends Component {
       username === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit} className='signUp-form'>
         <input
           value={username}
           onChange={event => this.setState(byPropKey('username', event.target.value))}
@@ -110,7 +111,7 @@ const SignUpLink = () =>
   <p>
     Dont have an account?
     {' '}
-    <Link to={routes.SIGN_UP}>Sign Up</Link>
+    <Link to={routes.SIGN_UP} className='signUp-link'>Sign Up</Link>
   </p>
 
 export default withRouter(SignUpPage);

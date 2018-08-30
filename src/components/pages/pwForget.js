@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import './styles_pwforget.css';
 import { auth } from '../../firebase';
 
 const PasswordForgetPage = () =>
-  <div>
-    <h1>PasswordForget</h1>
+  <div className='pwForget-wrapper'>
+    <h1>Password Reset</h1>
+    <div id='success-msg'>Password Reset Link Sent!</div>
     <PasswordForgetForm />
   </div>
 
@@ -31,6 +32,10 @@ class PasswordForgetForm extends Component {
     auth.doPasswordReset(email)
       .then(() => {
         this.setState(() => ({ ...INITIAL_STATE }));
+        document.getElementById('success-msg').style.display = 'block';
+        setTimeout(function(){
+          document.getElementById('success-msg').style.display = 'none';
+        }, 3000);
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
@@ -49,14 +54,16 @@ class PasswordForgetForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
+        <label for='emailResetPw'>RESET PASSWORD USING EMAIL</label>
         <input
           value={this.state.email}
           onChange={event => this.setState(byPropKey('email', event.target.value))}
           type="text"
+          id='emailResetPw'
           placeholder="Email Address"
         />
         <button disabled={isInvalid} type="submit">
-          Reset My Password
+          RESET PASSWORD
         </button>
 
         { error && <p>{error.message}</p> }
@@ -66,9 +73,9 @@ class PasswordForgetForm extends Component {
 }
 
 const PasswordForgetLink = () =>
-  <p>
-    <Link to="/pw-forget">Forgot Password?</Link>
-  </p>
+  <div>
+    <Link to="/pw-forget"><p id='pwForget-link'>Forgot Password?</p></Link>
+  </div>
 
 export default PasswordForgetPage;
 

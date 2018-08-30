@@ -8,9 +8,10 @@ import { SignUpLink } from '.././pages/signUp';
 import { PasswordForgetLink } from '.././pages/pwForget';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
+import './styles_signin.css';
 
 const SignInPage = ({ history }) =>
-  <div>
+  <div className='signIn-wrapper'>
     <h1>Sign In</h1>
     <SignInForm history={history} />
     <PasswordForgetLink />
@@ -68,7 +69,8 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <div className='signIn-form-container'>
+      <form onSubmit={this.onSubmit} className='signIn-form'>
         <input
           value={email}
           onChange={event => this.setState(byPropKey('email', event.target.value))}
@@ -87,6 +89,7 @@ class SignInForm extends Component {
 
         { error && <p>{error.message}</p> }
       </form>
+      </div>
     );
   }
 }
@@ -94,7 +97,7 @@ class SignInForm extends Component {
 const SignInLink = () =>
   <p>
     {' '}
-    <Link to={routes.SIGN_IN}>Login</Link>
+    <Link to={routes.SIGN_IN}>Sign In</Link>
   </p>
 
 export default withRouter(SignInPage);
